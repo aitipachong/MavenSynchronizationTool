@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<repositories>
+    <repository CentralUrl="https://repo1.maven.org/maven2/com/android/tools/build/gradle/" LocalFolder="D:\gradle\repo1">Maven中央库repo1中的gradle相关各版本jar包：com/android/tools/build/gradle/</repository>
+</repositories>
