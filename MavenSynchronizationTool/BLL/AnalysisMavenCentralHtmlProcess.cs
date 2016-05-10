@@ -111,14 +111,15 @@ namespace MavenSynchronizationTool.BLL
                 }
                 else
                 {
-                    if(Program.DownloadTypes.FindIndex(s => s == strExtension) >= 0)
-                    {
-                        return 3;
-                    }
-                    else
-                    {
-                        return 2;
-                    }
+                    //if(Program.DownloadTypes.FindIndex(s => s == strExtension) >= 0)
+                    //{
+                    //    return 3;
+                    //}
+                    //else
+                    //{
+                    //    return 2;
+                    //}
+                    return 3;
                 }
             }
         }

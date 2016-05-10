@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\DLLs\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -54,23 +57,38 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BLL\AnalysisMavenCentralHtmlProcess.cs" />
+    <Compile Include="Core\DBUtility\ReflectHandler.cs" />
     <Compile Include="Core\DBUtility\SQLiteHelper.cs" />
     <Compile Include="Core\Downloads.cs" />
+    <Compile Include="Core\LogHelper.cs" />
     <Compile Include="Core\Spider.cs" />
     <Compile Include="Core\XMLHelper.cs" />
     <Compile Include="Entities\Collection\IKeyObject.cs" />
     <Compile Include="Entities\Collection\IKeyValueCollection.cs" />
     <Compile Include="Entities\Collection\KeyValueCollection.cs" />
     <Compile Include="Entities\MavenCentralConfigContract.cs" />
+    <Compile Include="Entities\SQLiteContract.cs" />
     <Compile Include="Entities\SyncDataContract.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSysInit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSysInit.Designer.cs">
+      <DependentUpon>FrmSysInit.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSysInit.resx">
+      <DependentUpon>FrmSysInit.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -94,7 +112,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\MavenCentralConfiguration.xml">
