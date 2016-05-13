@@ -48,6 +48,10 @@ namespace MavenSynchronizationTool
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            //DevExpress控件界面汉化
+            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo("zh-CN");
+
             Application.Run(new FrmSysInit());
         }
     }
