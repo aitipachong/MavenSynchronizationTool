@@ -357,6 +357,28 @@ namespace MavenSynchronizationTool.Core.DBUtility
             return result;
         }
 
+
+        public static Int64 ExecuteInsert(string connectionString, string commandText, params object[] paramList)
+        {
+            using (SQLiteConnection conn = new SQLiteConnection(connectionString))
+            {
+                SQLiteCommand cmd = new SQLiteCommand(commandText, conn);
+                try
+                {
+                    if (conn.State == ConnectionState.Closed) conn.Open();
+                    if (paramList != null) cmd.Parameters.AddRange(paramList);
+                    cmd.ExecuteNonQuery();
+                    cmd.CommandText = "select last_insert_rowid() newid;";
+                    Int64 value = Int64.Parse(cmd.ExecuteScalar().ToString());
+                    return value;
+                }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
+            }
+        }
+
         /// <summary>
         /// Shortcut to ExecuteScalar with Sql Statement embedded params and object[] param values
         /// </summary>

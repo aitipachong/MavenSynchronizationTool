@@ -96,6 +96,8 @@ namespace MavenSynchronizationTool
             }
             else
             {
+                this.progressBar1.Value = 100;
+                Thread.Sleep(1000);
                 this.Hide();
                 FrmMain frmMain = new FrmMain();
                 frmMain.Show();

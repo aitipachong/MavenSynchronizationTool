@@ -29,6 +29,99 @@ namespace MavenSynchronizationTool.BLL
     /// </summary>
     public class AnalysisMavenCentralHtmlProcess
     {
+        public bool ScanCentralRepositoryIndexs(CentralRepository centralRepository)
+        {
+            bool result = false;
+            string html = string.Empty;
+
+            try
+            {
+                if(Program.IsHttpProxy)
+                {
+                    html = Spider.GetPageHtml(centralRepository.CentralUrl, Program.HttpProxyHost, Program.HttpProxyPort, Program.HttpProxyUser, Program.HttpProxyPwd);
+                }
+                else
+                {
+                    html = Spider.GetPageHtml(centralRepository.CentralUrl);
+                }
+                if (string.IsNullOrEmpty(html)) return result;
+                AnalysisRepositoryIndexs(html, centralRepository);
+                result = true;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
+
+        private void AnalysisRepositoryIndexs(string html, CentralRepository centralRepository)
+        {
+            try
+            {
+                while(true)
+                {
+                    string content = Spider.GetHrefContent(ref html);
+                    if(string.IsNullOrEmpty(content))
+                    {
+                        break;
+                    }
+                    //分析内容类型
+                    if (content.LastIndexOf("..") >= 0) continue;
+                    CentralRepositoryIndex index = new CentralRepositoryIndex();
+                    index.CentralID = centralRepository.ID;
+                    index.IndexName = content;
+                    index.SynchState = 0;
+                    centralRepository.IndexList.Add(index);
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /*
+        private void AnalysisHrefTags(SyncDataContract parent, string html)
+        {
+            try
+            {
+                while (true)
+                {
+                    string content = Spider.GetHrefContent(ref html);
+                    if (string.IsNullOrEmpty(content))
+                    {
+                        break;
+                    }
+                    //分析内容类型
+                    if (content.LastIndexOf("..") >= 0) continue;
+                    int type = this.AnalysisContentType(content);
+                    //创建节点对象
+                    string nodeUrl = SetNodeUrl(parent.Url, content);
+                    SyncDataContract node = new SyncDataContract(parent, nodeUrl, content, type);
+                    if (parent.ChildNodes == null) parent.ChildNodes = new List<SyncDataContract>();
+                    parent.ChildNodes.Add(node);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }        
+            */
+
+
+
+
+
+
+
+
+
+
+
+
         /// <summary>
         /// 分析结果
         /// </summary>
